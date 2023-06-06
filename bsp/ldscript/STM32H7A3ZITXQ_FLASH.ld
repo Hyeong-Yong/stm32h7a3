@@ -136,6 +136,18 @@ SECTIONS
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
 
+
+
+  .non_cache :
+  {
+    . = ALIGN(4);      
+    *(.non_cache)
+    *(.non_cache*)   
+    . = ALIGN(4);       
+  } >RAM_SRD AT> FLASH     
+
+
+
   /* Uninitialized data section */
   . = ALIGN(4);
   .bss :
