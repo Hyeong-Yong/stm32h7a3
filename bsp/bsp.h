@@ -9,6 +9,8 @@
 #define SRC_BSP_BSP_H_
 
 #include "def.h"
+#include "stm32h7xx_hal.h"
+
 
 #define _USE_LOG_PRINT    1
 
@@ -17,9 +19,6 @@
 #else
 #define logPrintf(fmt, ...)
 #endif
-
-
-#include "stm32h7xx_hal.h"
 
 
 

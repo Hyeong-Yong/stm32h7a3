@@ -9,5 +9,11 @@
 #include "hw.h"
 
 void hwInit(void){
+	bspInit();
+	cliInit();
+	cdcInit();
 	uartInit();
+	ledInit();
+	usbInit();
+	adcInit();
 }

@@ -8,17 +8,51 @@
 #include "bsp.h"
 
 void bspInit(){
+	  HAL_Init();
+	  SystemClock_Config();
+	  PeriphCommonClock_Config();
+
+
+
+
+
 
 }
 
 
-void delay(uint32_t ms){
 
+void delay(uint32_t ms)
+{
+#ifdef _USE_HW_RTOS
+  if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED)
+  {
+    osDelay(ms);
+  }
+  else
+  {
+    HAL_Delay(ms);
+  }
+#else
+  HAL_Delay(ms);
+#endif
 }
 
-uint32_t millis(void){
-	return 0;
+uint32_t millis(void)
+{
+  return HAL_GetTick();
 }
+
+
+
+extern uint32_t uartWrite(uint8_t ch, uint8_t *p_data, uint32_t length);
+
+int __io_putchar(int ch)
+{
+  uartWrite(_DEF_UART1, (uint8_t *)&ch, 1);
+  return 1;
+}
+
+
 
 
 void Error_Handler(void)
@@ -28,6 +62,8 @@ void Error_Handler(void)
 
   /* USER CODE END Error_Handler_Debug */
 }
+
+
 
 void SystemClock_Config(void)
 {
